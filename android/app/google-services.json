@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "273029552232",
+    "firebase_url": "https://forasterosrp-chat.firebaseio.com",
+    "project_id": "forasterosrp-chat",
+    "storage_bucket": "forasterosrp-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273029552232:android:9765909544afd33a9483dd",
+        "android_client_info": {
+          "package_name": "com.example.forasterosrp_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273029552232-kllml3tfbn168tfvvh5unk79j4so9n51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYVpXlltbm1eoFJtPY72-H4B2SMNpTn8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "273029552232-kllml3tfbn168tfvvh5unk79j4so9n51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget{
 
 class MyHomePage extends StatelessWidget {
   static const String id = "HOMESCREEN";
+
   @override
   Widget build( BuildContext context ) {
     return Scaffold(
@@ -261,6 +262,8 @@ Future<void> loginUser() async {
   }
 }
 
+
+
 class Chat extends StatefulWidget {
   static const String id = "CHAT";
   final FirebaseUser user;
@@ -280,9 +283,10 @@ class _ChatState extends State<Chat> {
   Future<void> callback() async {
     if (messageController.text.length > 0) {
       await
-      _firestore.collection('message').add({
+      _firestore.collection('messages').add({
         'text': messageController.text,
         'from': widget.user.email,
+        'date': DateTime.now().toIso8601String().toString(),
       });
       messageController.clear();
       scrollController.animateTo(
@@ -321,7 +325,7 @@ class _ChatState extends State<Chat> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('messages').snapshots(),
+                stream: _firestore.collection('messages').orderBy('date').snapshots(),
                 builder: (context,snapshot) {
                   if (!snapshot.hasData)
                   return Center(
@@ -366,7 +370,6 @@ class _ChatState extends State<Chat> {
                ],
              ),
            ),
-
           ],
         ),
       ),

@@ -145,6 +145,14 @@ Future<void> registerUser() async {
           SizedBox(
             height: 40.0,
           ),
+          Container(
+            child: Text(
+              "Usuario",
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+            ),
+          ),
           TextField(
             keyboardType: TextInputType.emailAddress,
             onChanged: (value) => email = value,
@@ -155,6 +163,14 @@ Future<void> registerUser() async {
           ),
           SizedBox(
             height: 40.0,
+          ),
+          Container(
+            child: Text(
+              "Contraseña",
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+            ),
           ),
           TextField(
             autocorrect: false,
@@ -229,6 +245,14 @@ Future<void> loginUser() async {
           SizedBox(
             height: 40.0,
           ),
+          Container(
+            child: Text(
+              "Usuario",
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+            ),
+          ),
           TextField(
             keyboardType: TextInputType.emailAddress,
             onChanged: (value) => email = value,
@@ -239,6 +263,14 @@ Future<void> loginUser() async {
           ),
           SizedBox(
             height: 40.0,
+          ),
+          Container(
+            child: Text(
+              "Contraseña",
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+            ),
           ),
           TextField(
             autocorrect: false,
@@ -280,9 +312,10 @@ class _ChatState extends State<Chat> {
   Future<void> callback() async {
     if (messageController.text.length > 0) {
       await
-      _firestore.collection('message').add({
+      _firestore.collection('messages').add({
         'text': messageController.text,
         'from': widget.user.email,
+        'date': DateTime.now().toIso8601String().toString(),
       });
       messageController.clear();
       scrollController.animateTo(
@@ -321,7 +354,7 @@ class _ChatState extends State<Chat> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('messages').snapshots(),
+                stream: _firestore.collection('messages').orderBy('date').snapshots(),
                 builder: (context,snapshot) {
                   if (!snapshot.hasData)
                   return Center(
@@ -329,14 +362,11 @@ class _ChatState extends State<Chat> {
                   );
 
                   List<DocumentSnapshot> docs = snapshot.data.documents;
-
+                  
                   List<Widget> messages = docs.map((doc) => Message(
                     from: doc.data['from'],
                     text: doc.data['text'],
-                    me: widget.user.email == doc.data['from'],
-                  ))
-                  .toList();
-
+                    me: widget.user.email == doc.data['from'])).toList();
                   return ListView(
                     controller: scrollController,
                     children: <Widget>[
@@ -366,7 +396,6 @@ class _ChatState extends State<Chat> {
                ],
              ),
            ),
-
           ],
         ),
       ),
@@ -402,13 +431,15 @@ class Message extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        //El ME es un booleano por eso cuando pongo 'me ?' y 2 cosas mas separadas por puntos quiere decir que si el booleano es 'true'
+        //se cumplira la primera opcion, si el booleano es 'false' se cumplira la segunda condicion.
         crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             from,
           ),
           Material(
-            color: me ? Colors.teal : Colors.red,
+            color: me ? Colors.green[900] : Colors.red[700],
             borderRadius: BorderRadius.circular(10.0),
             elevation: 6.0,
             child: Container(

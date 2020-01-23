@@ -340,7 +340,7 @@ class _ChatState extends State<Chat> {
         title: Text("ForasterosRP Chat"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.exit_to_app),
             onPressed: () {
               _auth.signOut();
               Navigator.of(context).popUntil((route) => route.isFirst);

@@ -13,23 +13,23 @@ class _RegistrationState extends State<Registration> {
   String email;
   String password;
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future<void> registerUser() async {
-  FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-    email: email,
-    password: password,
-  );
+  Future<void> registerUser() async {
+    FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
 
-  Navigator.push(
-    context, 
-    MaterialPageRoute(
-      builder: (context) => Chat(
-        user: user,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Chat(
+          user: user,
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,7 @@ Future<void> registerUser() async {
             child: Hero(
               tag: 'logo',
               child: Container(
-                child: Image.asset(
-                  "assets/image/logo.png"
-                ),
+                child: Image.asset("assets/image/logo.png"),
               ),
             ),
           ),
@@ -92,7 +90,7 @@ Future<void> registerUser() async {
           ),
           CustomButton(
             text: "Register",
-            callback: () async{
+            callback: () async {
               await registerUser();
             },
           )

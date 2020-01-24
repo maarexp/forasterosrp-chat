@@ -43,7 +43,7 @@ class _ChatState extends State<Chat> {
           tag: 'logo',
           child: Container(
             height: 40.0,
-            child: Image.asset("assets/image/logo.png"),
+            child: Image.asset('assets/image/logo.png'),
           ),
         ),
         title: Text("ForasterosRP Chat"),
@@ -56,6 +56,20 @@ class _ChatState extends State<Chat> {
             },
           )
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text('ForasterosRP'),
+              accountEmail: Text(widget.user.email),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/image/logo.gif'),
+              ),
+            ),
+
+          ],
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -112,6 +126,7 @@ class _ChatState extends State<Chat> {
   }
 }
 
+
 class SendButton extends StatelessWidget {
   final String text;
   final VoidCallback callback;
@@ -163,3 +178,4 @@ class Message extends StatelessWidget {
     );
   }
 }
+          

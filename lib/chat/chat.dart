@@ -35,6 +35,7 @@ class _ChatState extends State<Chat> {
     }
   }
 
+  @override    
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +61,6 @@ class _ChatState extends State<Chat> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('ForasterosRP'),
               accountName: Text("ForasterosRP"),
               accountEmail: Text(widget.user.email),
               currentAccountPicture: CircleAvatar(

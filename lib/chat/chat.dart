@@ -17,11 +17,11 @@ class _ChatState extends State<Chat> {
 
   TextEditingController messageController = TextEditingController();
   ScrollController scrollController = ScrollController();
-
+  
   Future<void> callback() async {
     if (messageController.text.length > 0) {
       await
-      _firestore.collection('messages').add({
+      _firestore.collection('chat-ooc').add({
         'text': messageController.text,
         'from': widget.user.email,
         'date': DateTime.now().toIso8601String().toString(),
@@ -35,7 +35,6 @@ class _ChatState extends State<Chat> {
     }
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -62,12 +61,12 @@ class _ChatState extends State<Chat> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text('ForasterosRP'),
+              accountName: Text("ForasterosRP"),
               accountEmail: Text(widget.user.email),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/logo.gif'),
               ),
-            ),
-
+            )
           ],
         ),
       ),
@@ -77,15 +76,15 @@ class _ChatState extends State<Chat> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('messages').orderBy('date').snapshots(),
-                builder: (context,snapshot) {
+                stream: _firestore.collection('chat-ooc').orderBy('date').snapshots(),
+                builder: (context, snapshot) {
                   if (!snapshot.hasData)
                   return Center(
                     child: CircularProgressIndicator(),
                   );
 
                   List<DocumentSnapshot> docs = snapshot.data.documents;
-                  
+
                   List<Widget> messages = docs.map((doc) => Message(
                     from: doc.data['from'],
                     text: doc.data['text'],
@@ -96,36 +95,35 @@ class _ChatState extends State<Chat> {
                       ... messages,
                     ],
                   );
-                },
-              ),
+                }
+              )
             ),
-           Container(
-             child: Row(
-               children: <Widget>[
-                 Expanded(
-                   child: TextField(
-                     onSubmitted: (value) => callback(),
-                     decoration: InputDecoration(
-                       hintText: "Escribe un Mensaje...",
-                       border: const OutlineInputBorder(),
-                     ),
-                     controller: messageController,
-                   ),
-                 ),
-                 SendButton(
-                   text: "Enviar",
-                   callback: callback,
-                 )
-               ],
-             ),
-           ),
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      onSubmitted: (value) => callback(),
+                      decoration: InputDecoration(
+                        hintText: "Escribe un Mensaje...",
+                        border: const OutlineInputBorder(),
+                      ),
+                      controller: messageController,
+                    ),
+                  ),
+                  SendButton(
+                    text: "Enviar",
+                    callback: callback,
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
     );
   }
 }
-
 
 class SendButton extends StatelessWidget {
   final String text;
@@ -144,33 +142,27 @@ class SendButton extends StatelessWidget {
 }
 
 class Message extends StatelessWidget {
-  final String from;
-  final String text;
+final String from;
+final String text;
 
-  final bool me;
+final bool me;
 
-  const Message({Key key, this.from, this.text, this.me}) : super(key: key);
+const Message({Key key, this.from, this.text, this.me}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        //El ME es un booleano por eso cuando pongo 'me ?' y 2 cosas mas separadas por puntos quiere decir que si el booleano es 'true'
-        //se cumplira la primera opcion, si el booleano es 'false' se cumplira la segunda condicion.
         crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            from,
-          ),
+          Text(from),
           Material(
             color: me ? Colors.green[900] : Colors.red[700],
             borderRadius: BorderRadius.circular(10.0),
             elevation: 6.0,
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-              child: Text(
-                text,
-              ),
+              child: Text(text),
             ),
           )
         ],
@@ -178,4 +170,3 @@ class Message extends StatelessWidget {
     );
   }
 }
-          

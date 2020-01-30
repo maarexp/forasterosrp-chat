@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:forasterosrp_chat/custom_icons_icons.dart';
 
 class Chat extends StatefulWidget {
   static const String id = "CHAT";
@@ -37,6 +39,15 @@ class _ChatState extends State<Chat> {
 
   @override    
   Widget build(BuildContext context) {
+
+  _launchURL(String url) async
+    {
+      if(await canLaunch(url))
+      {
+        await launch(url);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: Hero(
@@ -66,6 +77,16 @@ class _ChatState extends State<Chat> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/logo.gif'),
               ),
+            ),
+            ListTile(
+              leading: Icon(CustomIcons.twitter_1),
+              title: Text('Twitter'),
+              onTap: ()=> _launchURL('https://twitter.com/ForasterosRp'),
+            ),
+            ListTile(
+              leading: Icon(CustomIcons.twitch),
+              title: Text('Twitch'),
+              onTap: () => _launchURL('https://www.twitch.tv/forasterosrp/'),
             )
           ],
         ),

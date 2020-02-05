@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:forasterosrp_chat/main.dart';
 import 'package:forasterosrp_chat/chat/chat.dart';
 
-
 class Login extends StatefulWidget {
   static const String id = "LOGIN";
   @override
@@ -11,27 +10,26 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   String email;
   String password;
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future<void> loginUser() async {
-  FirebaseUser user = await _auth.signInWithEmailAndPassword(
-    email: email,
-    password: password,
-  );
+  Future<void> loginUser() async {
 
-  Navigator.push(
-    context, 
-    MaterialPageRoute(
-      builder: (context) => Chat(
-        user: user,
+    FirebaseUser user = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Chat(
+          user: user,
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +45,7 @@ Future<void> loginUser() async {
             child: Hero(
               tag: 'logo',
               child: Container(
-                child: Image.asset(
-                  "assets/image/logo.png"
-                ),
+                child: Image.asset("assets/image/logo.png"),
               ),
             ),
           ),
@@ -94,7 +90,7 @@ Future<void> loginUser() async {
           ),
           CustomButton(
             text: "Log In",
-            callback: () async{
+            callback: () async {
               await loginUser();
             },
           )

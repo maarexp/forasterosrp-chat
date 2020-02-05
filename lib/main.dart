@@ -3,6 +3,7 @@ import 'package:forasterosrp_chat/register/register.dart';
 import 'package:forasterosrp_chat/login/login.dart';
 import 'package:forasterosrp_chat/chat/chat.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'ForasterosRp Chat',
       theme: ThemeData.dark(),
       initialRoute: MyHomePage.id,
       routes: {

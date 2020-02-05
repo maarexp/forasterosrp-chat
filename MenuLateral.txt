@@ -1,0 +1,56 @@
+child: Column(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("ForasterosRP"),
+              accountEmail: Text(widget.user.email),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/image/logo.gif'),
+              ),
+            ),
+            ListTile(
+                leading: Icon(Icons.keyboard_arrow_right),
+                title: Text('General'),
+                onTap: () => print('hello')),
+            Divider(
+              color: Colors.white,
+              height: 5.0,
+            ),
+            ListTile(
+              leading: Icon(CustomIcons.twitter_1),
+              title: Text('Twitter'),
+              onTap: () => _launchURL('https://twitter.com/ForasterosRp'),
+            ),
+            Divider(
+              color: Colors.white,
+              height: 5.0,
+            ),
+            ListTile(
+              leading: Icon(CustomIcons.twitch),
+              title: Text('Twitch'),
+              onTap: () => _launchURL('https://www.twitch.tv/forasterosrp/'),
+            ),
+            Divider(),
+            Expanded(
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: ListTile(
+                  leading: Icon(FontAwesomeIcons.signOutAlt),
+                  title: Text('Desconectarse'),
+                  onTap: () => desconectar(),
+                ),
+              ),
+            )
+          ],
+        ),
+
+
+        ///
+
+        ListTile(
+                      leading: Icon(FontAwesomeIcons.medkit),
+                      title: Text(''),
+                      onTap: () => _launchURL(
+                          ''),
+                    ),
+
+                    

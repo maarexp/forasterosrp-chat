@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,6 +41,8 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
+  ScrollController scrollController = ScrollController();
+
     _launchURL(String url) async {
       if (await canLaunch(url)) {
         await launch(url);
@@ -72,6 +74,88 @@ class _ChatState extends State<Chat> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/logo.gif'),
               ),
+            ),
+            Text('Foro ForasterosRP'),
+            Divider(
+              height: 15.0,
+              color: Colors.white,
+            ),
+            Text('General'),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.stickyNote),
+              title: Text('Normas'),
+              onTap: () =>
+                  _launchURL('https://foro.forasterosrp.com/normas-f4/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.info),
+              title: Text('Información y noticias'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/informacion-y-noticias-f5/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.calendarAlt),
+              title: Text('Eventos y concursos'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/eventos-y-concursos-f6/'),
+            ),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            Text('Facciones'),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.flagUsa),
+              title: Text('LSPD'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/fuerzas-y-cuerpos-de-seguridad-del-estado-f22/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.notesMedical),
+              title: Text('LSFD'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/cuerpo-de-emergencias-sanitarias-f23/'),
+            ),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            Text('Soporte'),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.ban),
+              title: Text('Reportes'),
+              onTap: () =>
+                  _launchURL('https://foro.forasterosrp.com/reportes-f15/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.medkit),
+              title: Text('Dudas y problemas técnicos'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/dudas-y-problemas-tecnicos-f16/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.medkit),
+              title: Text('Informar de un bug'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/informar-de-un-bug-f17/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.medkit),
+              title: Text('Reclamaciones'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/reclamaciones-f18/'),
             ),
             /*ListView(
               children: <Widget>[

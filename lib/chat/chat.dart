@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:forasterosrp_chat/custom_icons_icons.dart';
 
 class Chat extends StatefulWidget {
   static const String id = "CHAT";
@@ -41,7 +40,9 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
-  ScrollController scrollController = ScrollController();
+    final estiloSubMenu = TextStyle(fontSize: 15.0);
+
+    ScrollController scrollController = ScrollController();
 
     _launchURL(String url) async {
       if (await canLaunch(url)) {
@@ -52,6 +53,28 @@ class _ChatState extends State<Chat> {
     desconectar() {
       _auth.signOut();
       Navigator.of(context).popUntil((route) => route.isFirst);
+    }
+
+    void _mostrarNombreTeamSpeack() {
+      showDialog(
+          context: context,
+          builder: (buildcontext) {
+            return AlertDialog(
+              title: Text('TeamSpeack 3'),
+              content: Text('forasteros.ts3omg.xyz'),
+              actions: <Widget>[
+                RaisedButton(
+                  child: Text(
+                    'CERRAR',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
     }
 
     return Scaffold(
@@ -66,21 +89,30 @@ class _ChatState extends State<Chat> {
         title: Text("ForasterosRP Chat"),
       ),
       drawer: Drawer(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text("ForasterosRP"),
               accountEmail: Text(widget.user.email),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/image/logo.gif'),
+                backgroundImage: AssetImage(
+                  'assets/image/logo.gif',
+                ),
               ),
             ),
-            Text('Foro ForasterosRP'),
+            Text(
+              'FORO FORASTEROS RP',
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20.0),
+            ),
             Divider(
               height: 15.0,
+              thickness: 4.0,
               color: Colors.white,
             ),
-            Text('General'),
+            Text(
+              'General',
+              style: estiloSubMenu,
+            ),
             Divider(
               height: 5.0,
               color: Colors.white,
@@ -105,9 +137,13 @@ class _ChatState extends State<Chat> {
             ),
             Divider(
               height: 5.0,
+              thickness: 2.0,
               color: Colors.white,
             ),
-            Text('Facciones'),
+            Text(
+              'Facciones',
+              style: estiloSubMenu,
+            ),
             Divider(
               height: 5.0,
               color: Colors.white,
@@ -126,9 +162,13 @@ class _ChatState extends State<Chat> {
             ),
             Divider(
               height: 5.0,
+              thickness: 2.0,
               color: Colors.white,
             ),
-            Text('Soporte'),
+            Text(
+              'Soporte',
+              style: estiloSubMenu,
+            ),
             Divider(
               height: 5.0,
               color: Colors.white,
@@ -140,175 +180,121 @@ class _ChatState extends State<Chat> {
                   _launchURL('https://foro.forasterosrp.com/reportes-f15/'),
             ),
             ListTile(
-              leading: Icon(FontAwesomeIcons.medkit),
+              leading: Icon(FontAwesomeIcons.question),
               title: Text('Dudas y problemas técnicos'),
               onTap: () => _launchURL(
                   'https://foro.forasterosrp.com/dudas-y-problemas-tecnicos-f16/'),
             ),
             ListTile(
-              leading: Icon(FontAwesomeIcons.medkit),
+              leading: Icon(FontAwesomeIcons.bug),
               title: Text('Informar de un bug'),
               onTap: () => _launchURL(
                   'https://foro.forasterosrp.com/informar-de-un-bug-f17/'),
             ),
             ListTile(
-              leading: Icon(FontAwesomeIcons.medkit),
+              leading: Icon(FontAwesomeIcons.redo),
               title: Text('Reclamaciones'),
               onTap: () => _launchURL(
                   'https://foro.forasterosrp.com/reclamaciones-f18/'),
             ),
-            /*ListView(
-              children: <Widget>[
-                ExpansionTile(
-                  title: Text('Foro ForasterosRP'),
-                  children: <Widget>[
-                    ExpansionTile(
-                      title: Text('General'),
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.page4),
-                          title: Text('Normas'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/normas-f4/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.page4),
-                          title: Text('Información y noticias'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/informacion-y-noticias-f5/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.page4),
-                          title: Text('Eventos y concursos'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/eventos-y-concursos-f6/'),
-                        ),
-                      ],
-                    ),
-                    ExpansionTile(
-                      title: Text('Facciones'),
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.poll),
-                          title: Text('LSPD'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/fuerzas-y-cuerpos-de-seguridad-del-estado-f22/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('LSFD'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/cuerpo-de-emergencias-sanitarias-f23/'),
-                        ),
-                      ],
-                    ),
-                    ExpansionTile(
-                      title: Text('Soporte'),
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Reportes'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/reportes-f15/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Dudas y problemas técnicos'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/dudas-y-problemas-tecnicos-f16/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Informar de un bug'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/informar-de-un-bug-f17/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Reclamaciones'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/reclamaciones-f18/'),
-                        ),
-                      ],
-                    ),
-                    ExpansionTile(
-                      title: Text('Comunidad'),
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Vida de la ciudad [IC]'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/vida-en-la-ciudad-ic-f8/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Roles de la comunidad [OOC]'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/roles-de-la-comunidad-ooc-f9/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Debates'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/debates-f10/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Sugerencias'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/sugerencias-f11/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Presentaciones'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/presentaciones-f12/'),
-                        ),
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.medkit),
-                          title: Text('Off-Topic'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/off-topic-f13/'),
-                        ),
-                      ],
-                    ),
-                    ExpansionTile(
-                      title: Text('IC'),
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(FontAwesomeIcons.newspaper),
-                          title: Text('Forasteros News'),
-                          onTap: () => _launchURL(
-                              'https://foro.forasterosrp.com/forasteros-news-f25/'),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                ListTile(
-                  leading: Icon(CustomIcons.twitter_1),
-                  title: Text('Twitter'),
-                  onTap: () => _launchURL('https://twitter.com/ForasterosRp'),
-                ),
-                ListTile(
-                  leading: Icon(CustomIcons.twitch),
-                  title: Text('Twitch'),
-                  onTap: () =>
-                      _launchURL('https://www.twitch.tv/forasterosrp/'),
-                ),
-                Divider(),
-                Expanded(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: ListTile(
-                      leading: Icon(FontAwesomeIcons.signOutAlt),
-                      title: Text('Desconectarse'),
-                      onTap: () => desconectar(),
-                    ),
-                  ),
-                )
-              ],
-            ),*/
+            Divider(
+              height: 5.0,
+              thickness: 2.0,
+              color: Colors.white,
+            ),
+            Text(
+              'Comunidad',
+              style: estiloSubMenu,
+            ),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.user),
+              title: Text('Roles de la comunidad [OOC]'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/roles-de-la-comunidad-ooc-f9/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.comments),
+              title: Text('Debates'),
+              onTap: () =>
+                  _launchURL('https://foro.forasterosrp.com/debates-f10/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.commentAlt),
+              title: Text('Sugerencias'),
+              onTap: () =>
+                  _launchURL('https://foro.forasterosrp.com/sugerencias-f11/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.desktop),
+              title: Text('Presentaciones'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/presentaciones-f12/'),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.pastafarianism),
+              title: Text('Off-Topic'),
+              onTap: () =>
+                  _launchURL('https://foro.forasterosrp.com/off-topic-f13/'),
+            ),
+            Divider(
+              height: 5.0,
+              thickness: 2.0,
+              color: Colors.white,
+            ),
+            Text(
+              'IC',
+              style: estiloSubMenu,
+            ),
+            Divider(
+              height: 5.0,
+              color: Colors.white,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.newspaper),
+              title: Text('Forasteros News'),
+              onTap: () => _launchURL(
+                  'https://foro.forasterosrp.com/forasteros-news-f25/'),
+            ),
+            Divider(
+              height: 15.0,
+              thickness: 4.0,
+              color: Colors.white,
+            ),
+
+            ///ESO AL PRESIONAR MUESTRA UN DIALOGO EMERJENTE CON LA IP DEL TEAMSPEACK///
+            ListTile(
+              leading: Icon(FontAwesomeIcons.teamspeak),
+              title: Text('Team Speack 3'),
+              onTap: () => _mostrarNombreTeamSpeack(),
+            ),
+            Divider(
+              height: 10.0,
+              thickness: 4.0,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.twitter),
+              title: Text('Twitter'),
+              onTap: () => _launchURL('https://twitter.com/ForasterosRp'),
+            ),
+            Divider(
+              height: 10.0,
+              thickness: 4.0,
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.twitch),
+              title: Text('Twitch'),
+              onTap: () => _launchURL('https://www.twitch.tv/forasterosrp/'),
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.signOutAlt),
+              title: Text('Desconectarse'),
+              onTap: () => desconectar(),
+            ),
           ],
         ),
       ),

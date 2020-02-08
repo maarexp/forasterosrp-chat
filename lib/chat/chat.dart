@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +54,7 @@ class _ChatState extends State<Chat> {
       Navigator.of(context).popUntil((route) => route.isFirst);
     }
 
+    ///ESO AL PRESIONAR MUESTRA UN DIALOGO EMERJENTE CON LA IP DEL TEAMSPEACK///
     void _mostrarNombreTeamSpeack() {
       showDialog(
           context: context,
@@ -264,8 +264,6 @@ class _ChatState extends State<Chat> {
               thickness: 4.0,
               color: Colors.white,
             ),
-
-            ///ESO AL PRESIONAR MUESTRA UN DIALOGO EMERJENTE CON LA IP DEL TEAMSPEACK///
             ListTile(
               leading: Icon(FontAwesomeIcons.teamspeak),
               title: Text('Team Speack 3'),

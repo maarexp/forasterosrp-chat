@@ -87,6 +87,14 @@ class _ChatState extends State<Chat> {
           ),
         ),
         title: Text("ForasterosRP Chat"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(FontAwesomeIcons.signOutAlt),
+            onPressed: () {
+              desconectar();
+            },
+          )
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -286,12 +294,6 @@ class _ChatState extends State<Chat> {
               leading: Icon(FontAwesomeIcons.twitch),
               title: Text('Twitch'),
               onTap: () => _launchURL('https://www.twitch.tv/forasterosrp/'),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(FontAwesomeIcons.signOutAlt),
-              title: Text('Desconectarse'),
-              onTap: () => desconectar(),
             ),
           ],
         ),

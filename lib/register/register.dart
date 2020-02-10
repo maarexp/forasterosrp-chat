@@ -60,8 +60,9 @@ class _RegistrationState extends State<Registration> {
               ),
             ),
           ),
-          TextField(
+          TextFormField(
             keyboardType: TextInputType.emailAddress,
+            validator: (value) => value.isEmpty ? 'Introduce un Email' : null,
             onChanged: (value) => email = value,
             decoration: InputDecoration(
               hintText: "Introduce el Email...",
@@ -79,9 +80,10 @@ class _RegistrationState extends State<Registration> {
               ),
             ),
           ),
-          TextField(
+          TextFormField(
             autocorrect: false,
             obscureText: true,
+            validator: (value) => value.length < 6 ? 'La contraseña debe tener almenos 6 caracteres' : null,
             onChanged: (value) => password = value,
             decoration: InputDecoration(
               hintText: "Introduce la Contraseña...",
